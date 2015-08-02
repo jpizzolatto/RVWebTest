@@ -8,48 +8,28 @@
 	app.config(function($routeProvider) {
 		$routeProvider
 		.when('/', {
-			// Check which controller I need to use here
-      		templateUrl:'dashboard.html',
+			controller: 'DashboardController',
+      		templateUrl:'Dashboard/dashboard.html',
     	})
 		.when('/user', {
-			controller:'UserController as userCtrl',
-      		templateUrl:'user.html',
+			controller:'UserController',
+      		templateUrl:'Users/user.html',
+    	})
+		.when('/user/:userID', {
+			controller:'UserController',
+      		templateUrl:'Users/user.html',
     	})
 		.when('/widget', {
-			controller:'WidgetController as widgetCtrl',
-      		templateUrl:'widget.html',
+			controller:'WidgetController',
+      		templateUrl:'Widgets/widget.html',
+    	})
+		.when('/widget/:widgetID', {
+			controller:'WidgetController',
+      		templateUrl:'Widgets/widget.html',
     	})
 		.otherwise({
       		redirectTo:'/'
     	});
 	});
-
-	// Define the User controller
-	app.controller('UserController', [ '$http', '$scope', function($http, $scope)
-	{
-		// Check methods, factory and if I need to export something to another controller
-		$scope.loadUser = function()
-		{
-			$http.get('http://spa.tglrw.com:4000/users').
-			success(function(data) {
-	            $scope.users = data;
-			});
-		};
-	}
-	]);
-
-	// Define the Widgets controller
-	app.controller('WidgetController', [ '$http', '$scope', function($http, $scope)
-	{
-		// Check methods, factory and if I need to export something to another controller
-		$scope.loadWidgets = function()
-		{
-			$http.get('http://spa.tglrw.com:4000/widgets').
-			success(function(data) {
-	            $scope.widgets = data;
-			});
-		};
-	}
-	]);
 
 })();

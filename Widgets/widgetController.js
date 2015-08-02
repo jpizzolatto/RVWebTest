@@ -32,10 +32,11 @@
         $scope.selWidget;
 
         $scope.LoadWidget = function(id) {
-            WidgetService.LoadWidgetByID($scope.widgetID).then(function(_widget) {
+            WidgetService.LoadWidgetByID(id).then(function(_widget) {
+                // Copy the widget element to selected (for edition purpose)
                 $scope.selWidget = angular.copy(_widget);
 
-                // Set just one element on array
+                // Set just one element on array to show
                 $scope.widgets = [];
                 $scope.widgets.push(_widget);
             });
@@ -49,13 +50,16 @@
 
         Initialize();
 
+        // Method to properly initialize the list
         function Initialize() {
+            // If the ID is not defined, load the whole list
             if ($scope.widgetID == undefined) {
                 $scope.LoadWidgetList($scope.forceUpload);
                 $scope.forceUpload = false;
             }
             else {
-                $scope.LoadWidget();
+                // Otherwise, load just the selected widget
+                $scope.LoadWidget($scope.widgetID);
             }
         }
 
@@ -76,10 +80,13 @@
         $scope.AddWidget = function(widget) {
             $scope.addNewClicked = false;
 
+            // Construct the JSON element
             var widgetJSON = ConstructWidgetJSON(widget);
 
+            // Call the Add Widget method from service passing the JSON element
             WidgetService.AddWidget(widgetJSON).then(function(result) {
                 if (result == true) {
+                    // Force update the list to show the new item
                     $scope.LoadWidgetList(true);
                 }
                 else {
@@ -93,9 +100,12 @@
 
             var widgetJSON = ConstructWidgetJSON(widget);
 
+            // Call the Update Widget method from service passing the JSON element
             WidgetService.UpdateWidget(widget.id, widgetJSON).then(function(result) {
                 if (result == true) {
+                    // Load the updated element to show for user
                     $scope.LoadWidget(widget.id);
+                    // Force to update the whole list for the next time
                     $scope.forceUpload = true;
                 }
                 else {

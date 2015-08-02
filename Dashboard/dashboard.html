@@ -76,7 +76,9 @@
                         <tbody>
                             <tr ng-repeat="widget in widgets | filter: filter.widgetName">
                                 <td class="text-center">{{ widget.id }}</td>
-                                <td>{{ widget.name }}</td>
+                                <td>
+                                    <a href="#/widget/{{ widget.id }}">{{ widget.name }}</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

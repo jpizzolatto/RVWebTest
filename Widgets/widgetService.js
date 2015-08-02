@@ -9,10 +9,10 @@
         var widgetList = [];
         var WidgetService = {};
 
-        WidgetService.LoadWidgets = function() {
+        WidgetService.LoadWidgets = function(forceLoad) {
             var deferred = $q.defer();
 
-            if (widgetList.length == 0) {
+            if (widgetList.length == 0 || forceLoad) {
 
                  $http.get('http://spa.tglrw.com:4000/widgets').success(function(data) {
                      // fill the local array and resolve with the properly array to caller
@@ -50,6 +50,44 @@
             });
 
            // Return a promise
+            return deferred.promise;
+        }
+
+        WidgetService.AddWidget = function(widget) {
+            var deferred = $q.defer();
+
+            // Send a POST message to add a new Widget element
+            $http.post('http://spa.tglrw.com:4000/widgets', widget)
+            .success(function(response) {
+                // In success case, add the element into the local array and return TRUE
+                deferred.resolve(true);
+            })
+            .error(function(err) {
+                // In error case, return FALSE
+                console.log(err);
+                deferred.resolve(false);
+            });
+
+            // Return a promise
+            return deferred.promise;
+        }
+
+        WidgetService.UpdateWidget = function(id, widget) {
+            var deferred = $q.defer();
+
+            // Send a POST message to add a new Widget element
+            $http.put('http://spa.tglrw.com:4000/widgets/' + id, widget)
+            .success(function(response) {
+                // In success case, add the element into the local array and return TRUE
+                deferred.resolve(true);
+            })
+            .error(function(err) {
+                // In error case, return FALSE
+                console.log(err);
+                deferred.resolve(false);
+            });
+
+            // Return a promise
             return deferred.promise;
         }
 

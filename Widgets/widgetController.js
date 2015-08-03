@@ -23,6 +23,7 @@
     function($http, $scope, WidgetService, $routeParams)
 	{
         // Control variabled
+        $scope.isLoading = false;
         $scope.forceUpload = false;
         $scope.addNewClicked = false;
         $scope.editClicked = false;
@@ -32,18 +33,30 @@
         $scope.selWidget;
 
         $scope.LoadWidget = function(id) {
-            WidgetService.LoadWidgetByID(id).then(function(_widget) {
-                // Copy the widget element to selected (for edition purpose)
-                $scope.selWidget = angular.copy(_widget);
+            $scope.isLoading = true;
+            WidgetService.LoadWidgetByID(id).then(
+                // Success function
+                function(_widget) {
+                    $scope.isLoading = false;
+                    // Copy the widget element to selected (for edition purpose)
+                    $scope.selWidget = angular.copy(_widget);
 
-                // Set just one element on array to show
-                $scope.widgets = [];
-                $scope.widgets.push(_widget);
-            });
+                    // Set just one element on array to show
+                    $scope.widgets = [];
+                    $scope.widgets.push(_widget);
+                },
+                // Error function
+                function() {
+                    $scope.isLoading = false;
+                    alert("Failed to load the widget.");
+                }
+            );
         }
 
         $scope.LoadWidgetList = function(forceLoad) {
+            $scope.isLoading = true;
             WidgetService.LoadWidgets(forceLoad).then(function(_widgets) {
+                $scope.isLoading = false;
                 $scope.widgets = _widgets;
             });
         }
@@ -78,41 +91,50 @@
         }
 
         $scope.AddWidget = function(widget) {
+            $scope.isLoading = true;
             $scope.addNewClicked = false;
 
             // Construct the JSON element
             var widgetJSON = ConstructWidgetJSON(widget);
 
             // Call the Add Widget method from service passing the JSON element
-            WidgetService.AddWidget(widgetJSON).then(function(result) {
-                if (result == true) {
+            WidgetService.AddWidget(widgetJSON).then(
+                // Success function
+                function() {
+                    // Set newWidget to null to reset the form
                     $scope.newWidget = null;
                     // Force update the list to show the new item
                     $scope.LoadWidgetList(true);
-                }
-                else {
+                },
+                // Error function
+                function() {
+                    $scope.isLoading = false;
                     alert("Failed to add a new widget!");
                 }
-            });
+            );
         }
 
         $scope.EditWidget = function(widget) {
+            $scope.isLoading = true;
             $scope.editClicked = false;
 
             var widgetJSON = ConstructWidgetJSON(widget);
 
             // Call the Update Widget method from service passing the JSON element
-            WidgetService.UpdateWidget(widget.id, widgetJSON).then(function(result) {
-                if (result == true) {
+            WidgetService.UpdateWidget(widget.id, widgetJSON).then(
+                // Success function
+                function() {
                     // Load the updated element to show for user
                     $scope.LoadWidget(widget.id);
                     // Force to update the whole list for the next time
                     $scope.forceUpload = true;
-                }
-                else {
+                },
+                // Error function
+                function() {
+                    $scope.isLoading = false;
                     alert("Failed to edit the widget!");
                 }
-            });
+            );
         }
 
 	}]);

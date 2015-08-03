@@ -20,7 +20,7 @@
                     deferred.resolve(data);
                 })
                 .error(function(err) {
-                    // In error case, print the message into the log and return the empty list
+                    // In error case, print the message into the log and return the list on the cache
                     console.log(err);
                     deferred.resolve(userList);
                 });
@@ -45,7 +45,7 @@
             .error(function(err) {
                 // In error case, print the message into the log and return the empty list
                 console.log(err);
-                deferred.resolve(null);
+                deferred.reject();
             });
 
             // Return a promise

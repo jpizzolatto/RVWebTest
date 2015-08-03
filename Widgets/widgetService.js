@@ -44,9 +44,9 @@
                 deferred.resolve(data);
             })
             .error(function(err) {
-                // In error case, print the message into the log and return the empty list
+                // In error case, print the message into the log and reject the promise
                 console.log(err);
-                deferred.resolve(null);
+                deferred.reject();
             });
 
            // Return a promise
@@ -59,13 +59,13 @@
             // Send a POST message to add a new Widget element
             $http.post('http://spa.tglrw.com:4000/widgets', widget)
             .success(function(response) {
-                // In success case, add the element into the local array and return TRUE
-                deferred.resolve(true);
+                // In success case, add the element into the local array and resolve the promise
+                deferred.resolve();
             })
             .error(function(err) {
-                // In error case, return FALSE
+                // In error case, reject the promise
                 console.log(err);
-                deferred.resolve(false);
+                deferred.reject();
             });
 
             // Return a promise
@@ -78,13 +78,13 @@
             // Send a POST message to add a new Widget element
             $http.put('http://spa.tglrw.com:4000/widgets/' + id, widget)
             .success(function(response) {
-                // In success case, add the element into the local array and return TRUE
-                deferred.resolve(true);
+                // In success case, add the element into the local array and resolve the promise
+                deferred.resolve();
             })
             .error(function(err) {
-                // In error case, return FALSE
+                // In error case, reject the promise
                 console.log(err);
-                deferred.resolve(false);
+                deferred.reject();
             });
 
             // Return a promise

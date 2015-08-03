@@ -6,15 +6,15 @@
         <div class="widget">
             <div class="widget-header">Create/Edit Template</div>
             <div class="widget-body">
-                <form name="widgetForm" class="form-horizontal" method="post" ng-submit="widgetForm.$valid && AddWidget(widget)">
+                <form name="widgetCreateForm" id="widgetCreateForm" class="form-horizontal" method="post" ng-submit="AddWidget(newWidget)" novalidate>
 
                     <legend>Create Widget</legend>
 
                     <!-- Name-->
                     <div class="controls">
                         Name
-                        <input id="widget-name" name="widget-name" type="text" placeholder="foo-bar" class="input-medium"
-                               ng-model="widget.name" required>
+                        <input id="widget_name" name="widget_name" type="text" placeholder="foo-bar" class="input-medium"
+                               ng-model="newWidget.name" required>
                     </div>
 
                     <!-- Price -->
@@ -22,15 +22,15 @@
                         <div class="input-prepend">
                             Price
                             <span class="add-on">$</span>
-                            <input id="widget-price" name="widget-price" class="input-medium" placeholder="0.00" type="text"
-                                   ng-model="widget.price" required>
+                            <input id="widget_price" name="widget_price" class="input-medium" placeholder="0.00" type="text"
+                                   ng-model="newWidget.price" required>
                         </div>
                     </div>
 
                     <!-- Color -->
                     <div class="controls">
                         Color
-                        <select id="widget-color" name="widget-color" class="input-large" ng-model="widget.color" required>
+                        <select id="widget_color" name="widget_color" class="input-large" ng-model="newWidget.color" required>
                             <option value="red">red</option>
                             <option value="purple">purple</option>
                             <option value="black">black</option>
@@ -44,20 +44,19 @@
                     <!-- Melts -->
                     <div class="controls">
                         Melts
-                        <input type="checkbox" name="widget-properties" id="widget-properties-0" value="melts"
-                                ng-model="widget.melts"
-                                ng-init="widget.melts = false">
+                        <input type="checkbox" name="widget_properties" id="widget_properties" value="melts"
+                                ng-model="newWidget.melts">
                     </div>
 
                     <!-- Inventory -->
                     <div class="controls">
                         Inventory
-                        <input id="widget-count" name="widget-count" type="text" placeholder="#?" class="input-small"
-                                ng-model="widget.inventory" required>
+                        <input id="widget_count" name="widget_count" type="text" placeholder="#?" class="input-small"
+                                ng-model="newWidget.inventory" required>
                     </div>
                     <hr>
                     <div class="controls">
-                        <button type="submit" class="btn btn-sm btn-info">Create</button>
+                        <button type="submit" class="btn btn-sm btn-info" ng-disabled="widgetCreateForm.$invalid">Create</button>
                         <button type="button" class="btn btn-sm btn-default" ng-click="addNewClicked = false">Cancel</button>
                     </div>
                 </form>

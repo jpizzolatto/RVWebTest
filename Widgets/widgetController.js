@@ -86,6 +86,7 @@
             // Call the Add Widget method from service passing the JSON element
             WidgetService.AddWidget(widgetJSON).then(function(result) {
                 if (result == true) {
+                    $scope.newWidget = null;
                     // Force update the list to show the new item
                     $scope.LoadWidgetList(true);
                 }

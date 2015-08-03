@@ -6,7 +6,7 @@
         <div class="widget">
             <div class="widget-header">Create/Edit Template</div>
             <div class="widget-body">
-                <form name="widgetForm" class="form-horizontal" method="post" ng-submit="widgetForm.$valid && EditWidget(selWidget)">
+                <form name="widgetForm" class="form-horizontal" method="post" ng-submit="EditWidget(selWidget)" novalidate>
 
                     <legend>Create Widget</legend>
 
@@ -57,7 +57,7 @@
                     </div>
                     <hr>
                     <div class="controls">
-                        <button type="submit" class="btn btn-sm btn-info">Edit</button>
+                        <button type="submit" class="btn btn-sm btn-info" ng-disabled="widgetForm.$invalid">Edit</button>
                         <button type="button" class="btn btn-sm btn-default" ng-click="editClicked = false">Cancel</button>
                     </div>
                 </form>

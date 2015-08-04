@@ -8,7 +8,7 @@
                     <div class="widget-icon green pull-left">
                         <i class="fa fa-users"></i>
                     </div>
-                    <div class="title">{{ users.length }}</div>
+                    <div class="title" ng-bind="users.length"></div>
                     <div class="comment">Users</div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <div class="widget-icon green pull-left">
                         <i class="fa fa-users"></i>
                     </div>
-                    <div class="title">{{ widgets.length }}</div>
+                    <div class="title" ng-bind="widgets.length"></div>
                     <div class="comment">Widgets</div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <div class="widget">
                 <div class="widget-header">Users
                     <div class="pull-right">
-                        <input type="text" class="form-control input-sm" ng-model="filter.userName"></div>
+                        <input type="text" placeholder="Filter by name" class="form-control input-sm" ng-model="filter.userName"></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -46,10 +46,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="user in users | filter: filter.userName">
-                                <td class="text-center">{{ user.id }}</td>
+                            <tr ng-repeat="user in filteredUsers = (users | filter: filter.userName)">
+                                <td class="text-center" ng-bind="user.id"></td>
                                 <td>
-                                    <a href="#/user/{{user.id}}">{{ user.name }}</a>
+                                    <a href="#/user/{{user.id}}" ng-bind="user.name"></a>
+                                </td>
+                            </tr>
+                            <tr ng-show="filteredUsers.length === 0">
+                                <td colspan="2">
+                                    <div class="alert alert-warning" role="alert">
+                                        There is no users avaiable with the "{{filter.userName}}" name.
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -63,7 +70,7 @@
             <div class="widget">
                 <div class="widget-header">Widgets
                     <div class="pull-right">
-                        <input type="text" class="form-control input-sm" ng-model="filter.widgetName"></div>
+                        <input type="text" placeholder="Filter by name" class="form-control input-sm" ng-model="filter.widgetName"></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -74,10 +81,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="widget in widgets | filter: filter.widgetName">
-                                <td class="text-center">{{ widget.id }}</td>
+                            <tr ng-repeat="widget in filteredWidgets = (widgets | filter: filter.widgetName)">
+                                <td class="text-center" ng-bind="widget.id"></td>
                                 <td>
-                                    <a href="#/widget/{{ widget.id }}">{{ widget.name }}</a>
+                                    <a href="#/widget/{{ widget.id }}" ng-bind="widget.name"></a>
+                                </td>
+                            </tr>
+                            <tr ng-show="filteredWidgets.length === 0">
+                                <td colspan="2">
+                                    <div class="alert alert-warning" role="alert">
+                                        There is no widgets avaiable with the "{{filter.widgetName}}" name.
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

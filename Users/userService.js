@@ -45,7 +45,7 @@
             .error(function(err) {
                 // In error case, print the message into the log and return the empty list
                 console.log(err);
-                deferred.reject();
+                deferred.reject("Failed to load user.");
             });
 
             // Return a promise

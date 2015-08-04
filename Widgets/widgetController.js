@@ -22,15 +22,19 @@
 	app.controller('WidgetController', [ '$http', '$scope', 'WidgetService', '$routeParams',
     function($http, $scope, WidgetService, $routeParams)
 	{
-        // Control variabled
-        $scope.isLoading = false;
-        $scope.forceUpload = false;
-        $scope.addNewClicked = false;
-        $scope.editClicked = false;
-        // Value variables
-        $scope.widgets = [];
-        $scope.widgetID = $routeParams.widgetID;
-        $scope.selWidget;
+        // Defines the scope variables
+        angular.extend($scope, {
+            // Control variables
+            isLoading: false,
+            forceUpload: false,
+            addNewClicked: false,
+            editClicked: false,
+
+            // Values variables
+            widgets: [],
+            widgetID: $routeParams.widgetID,
+            selWidget: null
+        });
 
         $scope.LoadWidget = function(id) {
             $scope.isLoading = true;
@@ -107,9 +111,9 @@
                     $scope.LoadWidgetList(true);
                 },
                 // Error function
-                function() {
+                function(reason) {
                     $scope.isLoading = false;
-                    alert("Failed to add a new widget!");
+                    alert(reason);
                 }
             );
         }
@@ -130,9 +134,9 @@
                     $scope.forceUpload = true;
                 },
                 // Error function
-                function() {
+                function(reason) {
                     $scope.isLoading = false;
-                    alert("Failed to edit the widget!");
+                    alert(reason);
                 }
             );
         }

@@ -23,7 +23,8 @@
                             Price
                             <span class="add-on">$</span>
                             <input id="widget-price" name="widget-price" class="input-medium" placeholder="0.00" type="text"
-                                   ng-model="selWidget.price" required>
+                                   ng-model="selWidget.price" required
+                                   ng-pattern="/^[0-9]+\.?[0-9]*$/">
                         </div>
                     </div>
 
@@ -53,7 +54,8 @@
                     <div class="controls">
                         Inventory
                         <input id="widget-count" name="widget-count" type="text" placeholder="#?" class="input-small"
-                                ng-model="selWidget.inventory" required>
+                                ng-model="selWidget.inventory" required
+                                ng-pattern="/^[0-9]+$/">
                     </div>
                     <hr>
                     <div class="controls">

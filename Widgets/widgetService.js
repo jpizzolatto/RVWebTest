@@ -46,7 +46,7 @@
             .error(function(err) {
                 // In error case, print the message into the log and reject the promise
                 console.log(err);
-                deferred.reject();
+                deferred.reject("Failed to load widget.");
             });
 
            // Return a promise
@@ -65,7 +65,7 @@
             .error(function(err) {
                 // In error case, reject the promise
                 console.log(err);
-                deferred.reject();
+                deferred.reject("Failed to add widget.");
             });
 
             // Return a promise
@@ -84,7 +84,7 @@
             .error(function(err) {
                 // In error case, reject the promise
                 console.log(err);
-                deferred.reject();
+                deferred.reject("Failed to update widget.");
             });
 
             // Return a promise

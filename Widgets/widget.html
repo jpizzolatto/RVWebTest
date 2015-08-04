@@ -34,7 +34,10 @@
                     <thead>
                         <tr>
                             <th class="text-center">
-                                <a href="" ng-click="filter.reverse == ''? filter.reverse = 'reverse' : filter.reverse = '';">ID</a>
+                                <!-- Order the list by ID  -->
+                                <a href="" ng-init="filter.reverse = ''" ng-click="filter.reverse == ''? filter.reverse = 'reverse' : filter.reverse = '';">
+                                   ID
+                               </a>
                             </th>
                             <th>Name</th>
                             <th>Color</th>
@@ -44,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="widget in widgets | filter: filter.widget | orderBy: 'id' : filter.reverse">
+                        <tr ng-repeat="widget in widgets | filter: filter.name | orderBy: 'id' : filter.reverse">
                             <td class="text-center">{{ widget.id }}</td>
                             <td ng-show="widgetID == undefined">
                                 <a href="#/widget/{{widget.id}}">

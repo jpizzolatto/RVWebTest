@@ -26,8 +26,8 @@
                     $scope.users.push(user);
                     $scope.isLoading = false;
                 },
-                function() {
-                    alert("Failed to load user.");
+                function(reason) {
+                    alert(reason);
                     $scope.isLoading = false;
                 }
             );

@@ -8,8 +8,9 @@
 
         var widgetList = [];
         var WidgetService = {};
+        var forceLoad = false;
 
-        WidgetService.LoadWidgets = function(forceLoad) {
+        WidgetService.LoadWidgets = function() {
             var deferred = $q.defer();
 
             if (widgetList.length == 0 || forceLoad) {
@@ -24,6 +25,9 @@
                      console.log(err);
                      deferred.resolve(widgetList);
                  });
+
+                 // Reset the forceLoad flag
+                 forceLoad = false;
 
                 // Return a promise
                  return deferred.promise;
@@ -59,7 +63,8 @@
             // Send a POST message to add a new Widget element
             $http.post('http://spa.tglrw.com:4000/widgets', widget)
             .success(function(response) {
-                // In success case, add the element into the local array and resolve the promise
+                // In success case, set the forceLoad flag and resolve the promise
+                forceLoad = true;
                 deferred.resolve();
             })
             .error(function(err) {
@@ -78,7 +83,8 @@
             // Send a POST message to add a new Widget element
             $http.put('http://spa.tglrw.com:4000/widgets/' + id, widget)
             .success(function(response) {
-                // In success case, add the element into the local array and resolve the promise
+                // In success case, set the forceLoad flag and resolve the promise
+                forceLoad = true;
                 deferred.resolve();
             })
             .error(function(err) {

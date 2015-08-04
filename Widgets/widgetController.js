@@ -26,7 +26,6 @@
         angular.extend($scope, {
             // Control variables
             isLoading: false,
-            forceUpload: false,
             addNewClicked: false,
             editClicked: false,
 
@@ -57,9 +56,9 @@
             );
         }
 
-        $scope.LoadWidgetList = function(forceLoad) {
+        $scope.LoadWidgetList = function() {
             $scope.isLoading = true;
-            WidgetService.LoadWidgets(forceLoad).then(function(_widgets) {
+            WidgetService.LoadWidgets().then(function(_widgets) {
                 $scope.isLoading = false;
                 $scope.widgets = _widgets;
             });
@@ -71,8 +70,7 @@
         function Initialize() {
             // If the ID is not defined, load the whole list
             if ($scope.widgetID == undefined) {
-                $scope.LoadWidgetList($scope.forceUpload);
-                $scope.forceUpload = false;
+                $scope.LoadWidgetList();
             }
             else {
                 // Otherwise, load just the selected widget
@@ -108,7 +106,7 @@
                     // Set newWidget to null to reset the form
                     $scope.newWidget = null;
                     // Force update the list to show the new item
-                    $scope.LoadWidgetList(true);
+                    $scope.LoadWidgetList();
                 },
                 // Error function
                 function(reason) {
@@ -130,8 +128,6 @@
                 function() {
                     // Load the updated element to show for user
                     $scope.LoadWidget(widget.id);
-                    // Force to update the whole list for the next time
-                    $scope.forceUpload = true;
                 },
                 // Error function
                 function(reason) {
@@ -139,6 +135,16 @@
                     alert(reason);
                 }
             );
+        }
+
+        // Method to reverse order of the list when click on ID column
+        $scope.reverseOrder = function() {
+            if ($scope.filter.reverse === '') {
+                $scope.filter.reverse = 'reverse';
+            }
+            else {
+                $scope.filter.reverse = '';
+            }
         }
 
 	}]);

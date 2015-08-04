@@ -24,7 +24,7 @@
                         <tr ng-repeat="user in users | filter: filter.name">
                             <td class="text-center">{{ user.id }}</td>
                             <td>{{ user.name }}</td>
-                            <td><img src="{{ user.gravatar }}"></td>
+                            <td><img ng-src="{{ user.gravatar }}"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -4,7 +4,7 @@
 
     var app = angular.module('RVapp');
 
-    app.factory('WidgetService', ['$q', '$http', function($q, $http) {
+    app.factory('WidgetService', ['$q', '$http', '$log', function($q, $http, $log) {
 
         var widgetList = [];
         var WidgetService = {};
@@ -22,7 +22,7 @@
                  })
                  .error(function(err) {
                      // In error case, print the message into the log and return the empty list
-                     console.log(err);
+                     $log.error(err);
                      deferred.resolve(widgetList);
                  });
 
@@ -49,7 +49,7 @@
             })
             .error(function(err) {
                 // In error case, print the message into the log and reject the promise
-                console.log(err);
+                $log.error(err);
                 deferred.reject("Failed to load widget.");
             });
 
@@ -69,7 +69,7 @@
             })
             .error(function(err) {
                 // In error case, reject the promise
-                console.log(err);
+                $log.error(err);
                 deferred.reject("Failed to add widget.");
             });
 
@@ -89,7 +89,7 @@
             })
             .error(function(err) {
                 // In error case, reject the promise
-                console.log(err);
+                $log.error(err);
                 deferred.reject("Failed to update widget.");
             });
 

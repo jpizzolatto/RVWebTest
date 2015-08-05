@@ -4,7 +4,7 @@
 
     var app = angular.module('RVapp');
 
-    app.factory('UserService', ['$q', '$http', function($q, $http) {
+    app.factory('UserService', ['$q', '$http', '$log', function($q, $http, $log) {
 
         var userList = [];
         var UserService = {};
@@ -21,7 +21,7 @@
                 })
                 .error(function(err) {
                     // In error case, print the message into the log and return the list on the cache
-                    console.log(err);
+                    $log.error(err);
                     deferred.resolve(userList);
                 });
 
@@ -44,7 +44,7 @@
             })
             .error(function(err) {
                 // In error case, print the message into the log and return the empty list
-                console.log(err);
+                $log.error(err);
                 deferred.reject("Failed to load user.");
             });
 
